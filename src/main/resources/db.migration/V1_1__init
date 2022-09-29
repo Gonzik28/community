@@ -1,0 +1,28 @@
+DROP TABLE user_roles;
+DROP TABLE usrers;
+DROP TABLE roles;
+
+CREATE TABLE IF NOT EXISTS usrers
+(
+    login text NOT NULL,
+    name text NOT NULL,
+    password text NOT NULL,
+    CONSTRAINT "login" PRIMARY KEY (login)
+);
+
+CREATE TABLE IF NOT EXISTS roles
+(
+    id text NOT NULL,
+    name text NOT NULL,
+    CONSTRAINT id_role PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS user_roles
+(
+    login_user text NOT NULL,
+    id_role text NOT NULL,
+    CONSTRAINT roles FOREIGN KEY (id_role)
+        REFERENCES roles (id) MATCH SIMPLE,
+    CONSTRAINT users FOREIGN KEY (login_user)
+        REFERENCES usrers (login) MATCH SIMPLE
+)
