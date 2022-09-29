@@ -1,7 +1,7 @@
 package com.gonzik28.community;
 
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.SpringApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @ComponentScan

@@ -15,7 +15,6 @@ public class UserRepository {
 
     @PostConstruct
     public void initData() {
-        // initialize users map
     }
 
     public Set<Map.Entry<String, ResponseUserDto>> findUsers() {

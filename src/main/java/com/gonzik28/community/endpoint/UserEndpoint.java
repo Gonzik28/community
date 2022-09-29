@@ -23,6 +23,7 @@ public class UserEndpoint {
         this.userRepository = userRepository;
     }
 
+
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "findUser")
     @ResponsePayload
     public ResponseUserDto findUser(@RequestPayload String login) {
