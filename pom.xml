@@ -127,41 +127,21 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>jaxb2-maven-plugin</artifactId>
-				<version>2.3.1</version>
+				<version>1.6</version>
 				<executions>
 					<execution>
-						<id>xjc-schema</id>
+						<id>xjc</id>
 						<goals>
 							<goal>xjc</goal>
 						</goals>
 					</execution>
 				</executions>
 				<configuration>
-					<sources>
-						<source>src/main/resources/users.xsd</source>
-					</sources>
-					<packageName>com.gonzik28.community.gen</packageName>
+					<schemaDirectory>${project.basedir}/src/main/resources/</schemaDirectory>
+					<outputDirectory>${project.basedir}/src/main/java</outputDirectory>
 					<clearOutputDir>false</clearOutputDir>
 				</configuration>
 			</plugin>
-<!--			<plugin>-->
-<!--				<groupId>org.codehaus.mojo</groupId>-->
-<!--				<artifactId>jaxb2-maven-plugin</artifactId>-->
-<!--				<version>1.6</version>-->
-<!--				<executions>-->
-<!--					<execution>-->
-<!--						<id>xjc</id>-->
-<!--						<goals>-->
-<!--							<goal>xjc</goal>-->
-<!--						</goals>-->
-<!--					</execution>-->
-<!--				</executions>-->
-<!--				<configuration>-->
-<!--					<schemaDirectory>${project.basedir}/src/main/resources/</schemaDirectory>-->
-<!--					<outputDirectory>${project.basedir}/src/main/java</outputDirectory>-->
-<!--					<clearOutputDir>false</clearOutputDir>-->
-<!--				</configuration>-->
-<!--			</plugin>-->
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<groupId>org.apache.maven.plugins</groupId>
