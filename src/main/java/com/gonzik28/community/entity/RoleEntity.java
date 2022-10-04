@@ -1,6 +1,10 @@
 package com.gonzik28.community.entity;
 
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +14,7 @@ import java.util.List;
 @XmlRootElement(name = RoleEntity.TABLE)
 public class RoleEntity {
     public static final String TABLE = "roles";
+
     @Id
     private String id;
     private String name;

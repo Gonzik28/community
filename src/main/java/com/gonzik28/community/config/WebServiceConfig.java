@@ -1,10 +1,15 @@
 package com.gonzik28.community.config;
 
+import com.gonzik28.community.endpoint.UserEndpoint;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.ws.config.annotation.EnableWs;
 import org.springframework.ws.config.annotation.WsConfigurerAdapter;
 import org.springframework.ws.transport.http.MessageDispatcherServlet;
@@ -16,27 +21,29 @@ import org.springframework.xml.xsd.XsdSchema;
 @Configuration
 public class WebServiceConfig extends WsConfigurerAdapter {
 
-
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     @Bean
-    public ServletRegistrationBean dispatcherServletRegistrationBean(ApplicationContext applicationContext) {
+    public ServletRegistrationBean messageDispatcherServlet(ApplicationContext appContext){
         MessageDispatcherServlet servlet = new MessageDispatcherServlet();
-        servlet.setApplicationContext(applicationContext);
+        servlet.setApplicationContext(appContext);
         servlet.setTransformWsdlLocations(true);
         return new ServletRegistrationBean(servlet, "/ws/*");
     }
 
+    // localhost:8080/ws/users.wsdl
     @Bean(name = "users")
-    public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema countriesSchema) {
+    public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema schema){
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-        wsdl11Definition.setPortTypeName("UsersPort");
+        wsdl11Definition.setPortTypeName("UserPort");
         wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://spring.io/guides/gs-producing-web-service");
-        wsdl11Definition.setSchema(countriesSchema);
+        wsdl11Definition.setTargetNamespace(UserEndpoint.NAMESPACE_URI);
+        wsdl11Definition.setSchema(schema);
         return wsdl11Definition;
     }
 
     @Bean
-    public XsdSchema usersSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("users.xsd"));
+    public XsdSchema moviesSchema(){
+        return new SimpleXsdSchema(new ClassPathResource("/users.xsd"));
     }
+
 }
