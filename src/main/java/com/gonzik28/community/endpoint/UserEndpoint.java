@@ -30,7 +30,7 @@ public class UserEndpoint {
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getUserByLoginRequest")
     @ResponsePayload
-    public GetUserByLoginResponse getUserByLogin(@RequestPayload GetLoginRequest request) {
+    public GetUserByLoginResponse getUserByLogin(@RequestPayload GetUserByLoginRequest request) {
         GetUserByLoginResponse response = new GetUserByLoginResponse();
         UserEntity userEntity = service.getEntityById(request.getLogin());
         User user = new User();

@@ -2,7 +2,7 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.gonzik28.com/community/gen"
            targetNamespace="http://www.gonzik28.com/community/gen" elementFormDefault="qualified">
 
-    <xs:element name="getLoginRequest">
+    <xs:element name="getUserByLoginRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="login" type="xs:string"/>
