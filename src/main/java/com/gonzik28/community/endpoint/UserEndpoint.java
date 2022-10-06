@@ -3,6 +3,7 @@ package com.gonzik28.community.endpoint;
 import com.gonzik28.community.entity.UserEntity;
 import com.gonzik28.community.gen.*;
 import com.gonzik28.community.service.UserEntityService;
+import com.gonzik28.community.utils.RoleUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -35,6 +36,8 @@ public class UserEndpoint {
         UserEntity userEntity = service.getEntityById(request.getLogin());
         User user = new User();
         BeanUtils.copyProperties(userEntity, user);
+        List<Role> rolesUser = RoleUtils.roleEntityToDtos(userEntity.getRoles());
+        user.setCurrency(rolesUser.get(0));
         response.setUser(user);
         return response;
 
@@ -91,10 +94,10 @@ public class UserEndpoint {
         ServiceStatus serviceStatus = new ServiceStatus();
         UserEntity userFromDB = service.getEntityById(request.getLogin());
 
-        if(userFromDB == null) {
+        if (userFromDB == null) {
             serviceStatus.setStatusCode("NOT FOUND");
             serviceStatus.setMessage("Movie = " + request.getName() + " not found");
-        }else {
+        } else {
 
             // 2. Get updated movie information from the request
             userFromDB.setName(request.getName());
@@ -104,10 +107,10 @@ public class UserEndpoint {
 
             boolean flag = service.updateEntity(userFromDB);
 
-            if(flag == false) {
+            if (flag == false) {
                 serviceStatus.setStatusCode("CONFLICT");
                 serviceStatus.setMessage("Exception while updating Entity=" + request.getName());
-            }else {
+            } else {
                 serviceStatus.setStatusCode("SUCCESS");
                 serviceStatus.setMessage("Content updated Successfully");
             }
@@ -136,15 +139,6 @@ public class UserEndpoint {
         response.setServiceStatus(serviceStatus);
         return response;
     }
-
-//    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getLoginRequest")
-//    @ResponsePayload
-//    public GetUserByLoginResponse getUserByLogin(@RequestPayload GetLoginRequest login) {
-//        GetUserByLoginResponse response = new GetUserByLoginResponse();
-//        response.setUser(userRepository.findUserByLogin(login.getLogin()));
-//        return response;
-//    }
-
 
 }
 

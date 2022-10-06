@@ -1,12 +1,9 @@
 package com.gonzik28.community.config;
 
 import com.gonzik28.community.endpoint.UserEndpoint;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.ws.config.annotation.EnableWs;
@@ -20,9 +17,9 @@ import org.springframework.xml.xsd.XsdSchema;
 @Configuration
 public class WebServiceConfig extends WsConfigurerAdapter {
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"rawtypes", "unchecked"})
     @Bean
-    public ServletRegistrationBean messageDispatcherServlet(ApplicationContext appContext){
+    public ServletRegistrationBean messageDispatcherServlet(ApplicationContext appContext) {
         MessageDispatcherServlet servlet = new MessageDispatcherServlet();
         servlet.setApplicationContext(appContext);
         servlet.setTransformWsdlLocations(true);
@@ -31,7 +28,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 
     // localhost:8080/ws/users.wsdl
     @Bean(name = "users")
-    public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema schema){
+    public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema schema) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("UserPort");
         wsdl11Definition.setLocationUri("/ws");
@@ -41,7 +38,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     }
 
     @Bean
-    public XsdSchema moviesSchema(){
+    public XsdSchema moviesSchema() {
         return new SimpleXsdSchema(new ClassPathResource("/users.xsd"));
     }
 

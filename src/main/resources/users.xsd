@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.gonzik28.com/community/gen"
            targetNamespace="http://www.gonzik28.com/community/gen" elementFormDefault="qualified">
-
     <xs:element name="getUserByLoginRequest">
         <xs:complexType>
             <xs:sequence>
@@ -18,22 +17,21 @@
         </xs:complexType>
     </xs:element>
 
-    <xs:complexType name="role">
-        <xs:sequence>
-            <xs:element name="id" type="xs:string"/>
-            <xs:element name="name" type="xs:string"/>
-        </xs:sequence>
-    </xs:complexType>
-
     <xs:complexType name="user">
         <xs:sequence>
-            <xs:element name="login" type="xs:string"/>
             <xs:element name="name" type="xs:string"/>
+            <xs:element name="login" type="xs:string"/>
             <xs:element name="password" type="xs:string"/>
-            <xs:element name="role" type="tns:role"/>
+            <xs:element name="currency" type="tns:role"/>
         </xs:sequence>
     </xs:complexType>
 
+    <xs:complexType name="role">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="id" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
 
     <xs:element name="getAllUsersRequest">
         <xs:complexType/>

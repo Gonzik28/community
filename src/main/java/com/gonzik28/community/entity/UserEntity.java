@@ -1,6 +1,7 @@
 package com.gonzik28.community.entity;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ public class UserEntity {
             joinColumns = { @JoinColumn(name = "login_user") },
             inverseJoinColumns = { @JoinColumn(name = "id_role") }
     )
+    @XmlElement
     List<RoleEntity> roles = new ArrayList<>();
 
     public String getLogin() {

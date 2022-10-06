@@ -23,7 +23,9 @@ public class UserEntityServiceImpl implements UserEntityService{
 
     @Override
     public UserEntity getEntityById(String login) {
-        return this.userRepository.findByLogin(login);
+        UserEntity userEntity = this.userRepository.findByLogin(login);
+        userEntity.getRoles().iterator();
+        return userEntity;
     }
 
     @Override
