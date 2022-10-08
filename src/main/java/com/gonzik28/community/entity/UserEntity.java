@@ -17,7 +17,7 @@ public class UserEntity {
     private String name;
     private String password;
 
-    @ManyToMany(cascade = { CascadeType.ALL })
+    @ManyToMany(cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(
             name = "user_roles",
             joinColumns = { @JoinColumn(name = "login_user") },

@@ -21,5 +21,18 @@ public class RoleUtils {
                 .collect(Collectors.toList());
     }
 
+    public static RoleEntity roleDtoToEntity(Role role) {
+        RoleEntity roleEntity = new RoleEntity();
+        roleEntity.setName(role.getName());
+        roleEntity.setId(role.getId());
+        return roleEntity;
+    }
+
+    public static List<RoleEntity> roleDtoToEntities(List<Role> roles) {
+        return roles.stream()
+                .map(RoleUtils :: roleDtoToEntity)
+                .collect(Collectors.toList());
+    }
+
 
 }

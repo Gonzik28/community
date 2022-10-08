@@ -1,10 +1,7 @@
 package com.gonzik28.community.entity;
 
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +16,7 @@ public class RoleEntity {
     private String id;
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "roles", cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<UserEntity> users = new ArrayList<>();
 
 

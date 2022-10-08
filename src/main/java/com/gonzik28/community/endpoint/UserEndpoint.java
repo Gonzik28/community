@@ -1,5 +1,6 @@
 package com.gonzik28.community.endpoint;
 
+import com.gonzik28.community.entity.RoleEntity;
 import com.gonzik28.community.entity.UserEntity;
 import com.gonzik28.community.gen.*;
 import com.gonzik28.community.service.UserEntityService;
@@ -69,7 +70,11 @@ public class UserEndpoint {
         userEntity.setName(request.getName());
         userEntity.setLogin(request.getLogin());
         userEntity.setPassword(request.getPassword());
-//        userEntity.setRoles(request.getRole());
+        Role role = request.getRole();
+        RoleEntity roleEntity = RoleUtils.roleDtoToEntity(role);
+        List<RoleEntity> roles = new ArrayList<>();
+        roles.add(roleEntity);
+        userEntity.setRoles(roles);
         userEntity = service.addEntity(userEntity);
 
         if (userEntity == null) {
@@ -89,7 +94,7 @@ public class UserEndpoint {
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "updateUserRequest")
     @ResponsePayload
-    public UpdateUserResponse updateMovie(@RequestPayload UpdateUserRequest request) {
+    public UpdateUserResponse updateUser(@RequestPayload UpdateUserRequest request) {
         UpdateUserResponse response = new UpdateUserResponse();
         ServiceStatus serviceStatus = new ServiceStatus();
         UserEntity userFromDB = service.getEntityById(request.getLogin());
@@ -98,13 +103,11 @@ public class UserEndpoint {
             serviceStatus.setStatusCode("NOT FOUND");
             serviceStatus.setMessage("Movie = " + request.getName() + " not found");
         } else {
-
-            // 2. Get updated movie information from the request
             userFromDB.setName(request.getName());
             userFromDB.setPassword(request.getPassword());
-//            userFromDB.setRoles(request.getRole());
-            // 3. update the movie in database
-
+            List<RoleEntity> roles = new ArrayList<>();
+            roles.add(RoleUtils.roleDtoToEntity(request.getRole()));
+            userFromDB.setRoles(roles);
             boolean flag = service.updateEntity(userFromDB);
 
             if (flag == false) {
@@ -115,18 +118,18 @@ public class UserEndpoint {
                 serviceStatus.setMessage("Content updated Successfully");
             }
         }
-
         response.setServiceStatus(serviceStatus);
         return response;
     }
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "deleteUserRequest")
     @ResponsePayload
-    public DeleteUserResponse deleteMovie(@RequestPayload DeleteUserRequest request) {
+    public DeleteUserResponse deleteUser(@RequestPayload DeleteUserRequest request) {
         DeleteUserResponse response = new DeleteUserResponse();
         ServiceStatus serviceStatus = new ServiceStatus();
 
         boolean flag = service.deleteEntityById(request.getLogin());
+
 
         if (flag == false) {
             serviceStatus.setStatusCode("FAIL");
