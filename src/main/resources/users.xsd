@@ -22,7 +22,7 @@
             <xs:element name="name" type="xs:string"/>
             <xs:element name="login" type="xs:string"/>
             <xs:element name="password" type="xs:string"/>
-            <xs:element name="currency" type="tns:role"/>
+            <xs:element name="currency" type="tns:role" maxOccurs = "unbounded"/>
         </xs:sequence>
     </xs:complexType>
 
@@ -32,6 +32,7 @@
             <xs:element name="id" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
+
 
     <xs:element name="getAllUsersRequest">
         <xs:complexType/>
@@ -57,7 +58,7 @@
                 <xs:element name="login" type="xs:string"/>
                 <xs:element name="name" type="xs:string"/>
                 <xs:element name="password" type="xs:string"/>
-                <xs:element name="role" type="tns:role"/>
+                <xs:element name="role" type="tns:role" maxOccurs = "unbounded"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -76,7 +77,7 @@
                 <xs:element name="login" type="xs:string"/>
                 <xs:element name="name" type="xs:string"/>
                 <xs:element name="password" type="xs:string"/>
-                <xs:element name="role" type="tns:role"/>
+                <xs:element name="role" type="tns:role" maxOccurs = "unbounded"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

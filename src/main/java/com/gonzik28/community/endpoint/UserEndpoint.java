@@ -1,6 +1,5 @@
 package com.gonzik28.community.endpoint;
 
-import com.gonzik28.community.entity.RoleEntity;
 import com.gonzik28.community.entity.UserEntity;
 import com.gonzik28.community.gen.*;
 import com.gonzik28.community.service.UserEntityService;
@@ -38,7 +37,7 @@ public class UserEndpoint {
         User user = new User();
         BeanUtils.copyProperties(userEntity, user);
         List<Role> rolesUser = RoleUtils.roleEntityToDtos(userEntity.getRoles());
-        user.setCurrency(rolesUser.get(0));
+        user.setCurrency(rolesUser);
         response.setUser(user);
         return response;
 
@@ -70,11 +69,7 @@ public class UserEndpoint {
         userEntity.setName(request.getName());
         userEntity.setLogin(request.getLogin());
         userEntity.setPassword(request.getPassword());
-        Role role = request.getRole();
-        RoleEntity roleEntity = RoleUtils.roleDtoToEntity(role);
-        List<RoleEntity> roles = new ArrayList<>();
-        roles.add(roleEntity);
-        userEntity.setRoles(roles);
+        userEntity.setRoles(RoleUtils.roleDtoToEntities(request.getRole()));
         userEntity = service.addEntity(userEntity);
 
         if (userEntity == null) {
@@ -105,9 +100,7 @@ public class UserEndpoint {
         } else {
             userFromDB.setName(request.getName());
             userFromDB.setPassword(request.getPassword());
-            List<RoleEntity> roles = new ArrayList<>();
-            roles.add(RoleUtils.roleDtoToEntity(request.getRole()));
-            userFromDB.setRoles(roles);
+            userFromDB.setRoles(RoleUtils.roleDtoToEntities(request.getRole()));
             boolean flag = service.updateEntity(userFromDB);
 
             if (flag == false) {
